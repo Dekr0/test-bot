@@ -40,6 +40,7 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
+        if (TextCommandHandler.isBotChannel(event.getTextChannel())) return;
 
         Message message = event.getMessage();
         String msg = message.getContentRaw();
@@ -59,7 +60,7 @@ public class CommandListener extends ListenerAdapter {
                 AudioCommandHandler.joinVoiceChannel(event.getMember(), event.getGuild());
                 break;
             case "!sam":
-                AudioCommandHandler.samTextToSpeech(event.getGuild(), msg);
+                AudioCommandHandler.samTextToSpeech(event.getTextChannel(), msg);
             default:
                 break;
         }

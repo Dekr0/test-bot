@@ -3,6 +3,7 @@ package libs;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.Hashtable;
@@ -19,11 +20,11 @@ public class AudioCommandHandler extends CommandHandler {
         guild.getAudioManager().closeAudioConnection();
     }
 
-    static void samTextToSpeech(Guild guild, String cmd) {
+    static void samTextToSpeech(TextChannel botChannel, String cmd) {
         try {
             String path = Sam.createWAV(cmd);
             if (path != null)
-                sendSamAudioFile(guild, path);
+                sendSamAudioFile(botChannel, path);
             else
                 System.out.println("Playing audio file");
         } catch (IllegalArgumentException ie) {
@@ -32,8 +33,7 @@ public class AudioCommandHandler extends CommandHandler {
 
     }
 
-    static private void sendSamAudioFile(Guild guild, String filepath) {
-        TextChannel botChannel = guild.getTextChannelById(926971913266401411L);
+    static private void sendSamAudioFile(TextChannel botChannel, String filepath) {
         File samAudioFile = new File(filepath);
 
         assert botChannel != null;

@@ -17,4 +17,11 @@ public class TextCommandHandler extends CommandHandler{
     static public void pingPongCommand(TextChannel currentChannel) {
         currentChannel.sendMessage("Pong").queue();
     }
+
+    static public boolean isBotChannel(TextChannel channel) {
+        if (channel.getName().contains("bot")) return false;
+
+        channel.sendMessage("Please send the command to a text channel specific for bot").queue();
+        return true;
+    }
 }
